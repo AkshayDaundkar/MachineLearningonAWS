@@ -1,0 +1,27 @@
+sigmoid scales outputs to be between 0 and 1.
+adding activation functions is important to introduce non-linearity. why?
+bc non-linear activation functions allow us to have have unique shaped graphs, and not just linear graphs.
+linear graphs can only seperate stuff that are linearly seperated, and not complex patterns
+
+Log Loss: Used for Binary Classification
+Cross-Entropy Loss: Used for Multiclass Classification
+Mean Squared Error & Mean Absolute Error: Used for Regression
+
+Adam has adoptive learning rates
+
+
+screen -r
+
+ctrl a+d
+
+
+RNNs like LSTMs were one of the most commonly used models for NLP tasks. However, they were replaced by Transformer based models. Which of the following were the disadvantages of LSTMs?
+
+It failed to retain a memory of past sentences/words
+
+
+They take a long time to train and are difficult to train.
+
+Cannot do transfer learning with LSTMs
+
+Most pre-trained networks are really large. This means that it is difficult or impossible to deploy them to resources constrained devices. However, models like MobileNet and EfficientNet are smaller models.

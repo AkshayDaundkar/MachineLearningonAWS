@@ -1,0 +1,17 @@
+requirements for training job:
+input data s3 uri
+desired output s3 uri: .tar.gz file(model compressed if we wanted to deploy it)
+ECR of training code, aws managed algorithm or custom container
+compute resources
+metadata like version and etc
+
+you need the Estimator to run a training job.Estimator contains iam role instances and etc
+
+two ways to deploy a model insagemakert, through console or sdk:
+role = get_execution_role()
+image_uri = image_uris.retrieve(framework='xgboost',region='us-west-2', version='latest')
+model_data = "s3://sagemaker-us-west-2-565094796913/boston-xgboost-HL/output/xgboost-2021-08-31-23-02-30-970/output/model.tar.gz"
+
+model = Model(image_uri=image_uri, model_data=model_data, role=role)
+
+predictor = model.deploy(initial_instance_count=1, instance_type="ml.m5.large")

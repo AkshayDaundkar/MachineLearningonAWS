@@ -1,0 +1,80 @@
+Batch Transform
+Batch Transform is a compute job that performs inference on a dataset. To invoke Batch Transform, you will need the following:
+
+Input path in S3 to the bucket containing the datasets.
+Output path in S3 for the result of the inference.
+Description of computing resources
+S3 URI of the model artifact.
+A Batch Transformation job is only possible on models created through the AWS Console or through the “CreateModel” operation on the CLI or SDK.
+
+
+Batch Transform (in parallel)
+The size of data can be a bottleneck for a transform job. By default, a separate compute resource will be spun up for each individual file in the S3 bucket that you specify. If you wish to split the size of the job even further, you can set the SplitType parameter to "Line". To assemble these split jobs back to a single output file, setAssembleWith parameters to "Line".
+you specify the output path of the model and where it should put the results,
+
+
+
+#EXAMPLE OF BATCH TRANSFORM
+from sagemaker import get_execution_role
+from sagemaker.model import Model
+from sagemaker import image_uris
+
+role = get_execution_role()
+
+image_uri = image_uris.retrieve(framework='xgboost',region='us-west-2', version='latest')
+
+# You'll need to replace this with the output uri of a training job.
+
+model_data = "s3://example_model/model.tar.gz"
+
+# You'll need to replace this with the desired output of your batch transform job.
+
+batch_transform_output_path = "s3://batch_output/"
+
+model = Model(image_uri=image_uri, model_data=model_data, role=role)
+
+transformer = model.transformer(
+    instance_count=10,
+    instance_type='ml.m4.xlarge',
+    output_path=batch_transform_output_path
+)
+
+transformer.transform(
+    data="s3://lots_of_datasets/",
+    data_type='S3Prefix',
+    content_type='text/csv',
+    split_type='Line'
+)
+
+
+you can have your custom script but you have to upload it to an ECR and then get that file path
+for like a processing job:
+
+from sagemaker.sklearn.processing import SKLearnProcessor
+
+Sklearn_processor = SKLearnProcessor(framework_version=string,
+    role=string,
+    instance_type=string,
+    instance_count=int)
+#ScriptProcessor - An object that allows you to define a custom image to perform processing operations.
+
+#we have our code a python file in our directory, sklearn proccessor An example processor object that has maintained dependencies installed.
+sklearn_processor.run(code='foo_script.py',
+    inputs=[ProcessingInput(
+    source='s3://sagemaker-us-west-2-565094796913/boston-xgboost-HL/train.csv',
+    destination='/opt/ml/processing/input/data/')],
+    outputs=[ProcessingOutput(source='/opt/ml/processing/output')]
+  )
+
+
+#this is just another cell in our notebook
+%%writefile foo_script.py
+
+import pandas
+
+def do_this(input_path_to_data):
+  .....
+
+if __name__="main":
+new_data=do_this("foo/f.csv")
+new_data.to_csv("output/data/path")

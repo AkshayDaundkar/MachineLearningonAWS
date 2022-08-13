@@ -1,0 +1,36 @@
+feature store=special kind of db built into sagemaker platform, help develop features for ml input.
+find new features and groups and decide if they want to use them
+
+load feature defintion, for example a dataset where i have added a new feature, but original doesnt ahve that, so
+i can experiment with how i changed my data, and you can search your different kinds of datasets to work with
+
+for example change the dataset in a unique way, and then store that train data in the Feature store,
+when created it will ask for s3 storage location where we store it. then other data scientist teams can access it
+also, with the ingest method we can load it in easily
+
+you first need to defined Feature group, and feature def. then create feature group, and then ingest data into your feature group
+
+Model monitor tells you when model is drifting, streams raw data to s3. and then we can visualize the inferences from that data
+it can emit alerts
+
+we can run monitoring jobs
+statistical to make sure that data doesnt get skewed, it can infer what our expected input range should be and values
+
+suggested constraints are like datatype constraints, and hard limit numerical constraints which we want the input and outputs
+to adhere to.
+
+
+DataCaptureConfig= object that we provide to the deploy function to capture events fro the API into s3
+
+defaultmmodel monitor configures size, timeout, storage and other settings for Model Monitor
+
+and we have to define monitoring job runs
+
+clarify to measure bias and explain inferences and identify inbalances
+it will generate charts to show what kind of inferences we are receiving
+
+SHAP algorithm for explainability monitoring
+
+
+Explainability: Our ability to measure which features of the model is treating as important when it makes an inference.
+SHAP: An algorithm to help explain model outputs. We provide resources on SHAP in the Additional Resource

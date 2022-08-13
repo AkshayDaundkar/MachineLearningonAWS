@@ -1,0 +1,34 @@
+lambda functions can be individaul components of step functions
+
+lambda:serveless computer service, perfect for small iterable tasks
+
+trigger lambda functions/invocations:
+
+2 types: synchronus and async
+lambdas are provoked thru Events, an event is a JSON object,
+
+event can be when we uploaded stuff to s3, like data so lambda runs
+or we can have cloudwatch events, where certain events trigger lambda
+cloudwatch scheduled events to run the lambda function
+
+step functions=AWS orchestration service
+
+abstractions:
+ state machine: orchestrated and repeatable pattern of activity
+ task: single unit of work performed externally
+ function orchestration: managed, ordered execution of tasks
+ branching: path determination based on outcome of previous task
+
+
+step functions expensive, use them when you have complex tasks than dont have to be run frequently
+output of one function can be input of the next Function
+
+branching path to catch errors
+creating step functions with UI is easy but with boto3 its hard bc you have to use amazon language
+
+sagemaker pipeline is AWS' CI/CD tool for ml jobs
+
+unlike step functions, sagemaker pipelines are directly integrated into sagemaker, which makes more complex ml workflows easier to manage
+
+
+AWS Data Pipeline is a web service that helps you reliably process and move data between different AWS compute and storage services, as well as on-premises data sources, at specified intervals. With AWS Data Pipeline, you can regularly access your data where it’s stored, transform and process it at scale, and efficiently transfer the results to AWS services such as Amazon S3, Amazon RDS, Amazon DynamoDB, and Amazon EMR.
